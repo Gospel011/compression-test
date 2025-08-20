@@ -203,16 +203,13 @@ class _HomeState extends State<Home> with ImageMixin {
                   if (_compressedFile != null)
                     ElevatedButton(
                       onPressed: () async {
-                        final dir = await getDownloadsDirectory();
-                        final mimeType = _compressedFile!.path.split('.').last;
+                        // final dir = await getDownloadsDirectory();
+                        // final mimeType = _compressedFile!.path.split('.').last;
 
-                        print(dir);
-                        print(mimeType);
 
-                        // return;
-                        _compressedFile!.saveTo(
-                          "$dir/${_compressedFile!.name}.$mimeType",
-                        );
+                        // _compressedFile!.saveTo(
+                        //   "$dir/${_compressedFile!.name}.$mimeType",
+                        // );
 
                         if (context.mounted == false) return;
 
