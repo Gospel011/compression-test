@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:compression_test/full_image_preview.dart';
+import 'package:compression_test/main.dart';
 import 'package:compression_test/mixins.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:media_store_plus/media_store_plus.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -228,13 +230,25 @@ class _HomeState extends State<Home> with ImageMixin {
 
                             if (!context.mounted) return;
 
-
                             return;
                           } catch (e) {
                             print("ERROR: $e");
                           }
                         } else {
                           _compressedFile!.saveTo(path);
+
+                          try {
+                            mediaStorePlugin.saveFile(
+                              tempFilePath: path,
+                              dirType: DirType.download,
+                              dirName: DirType.photo.defaults,
+                            );
+                          } catch (e) {
+                            if (!context.mounted) return;
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Error: $e")),
+                            );
+                          }
                         }
 
                         if (context.mounted == false) return;
@@ -307,7 +321,10 @@ class _HomeState extends State<Home> with ImageMixin {
   }
 
   void pickImage() async {
-    _pickedImage = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
+    _pickedImage = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 70,
+    );
 
     if (_pickedImage == null) return;
 
