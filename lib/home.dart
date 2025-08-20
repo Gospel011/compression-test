@@ -228,11 +228,6 @@ class _HomeState extends State<Home> with ImageMixin {
 
                             if (!context.mounted) return;
 
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text("Image saved to downloads"),
-                              ),
-                            );
 
                             return;
                           } catch (e) {
