@@ -6,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -190,7 +192,7 @@ class _HomeState extends State<Home> with ImageMixin {
                       );
                       setState(() {});
                     },
-                    child: Text("COMPRESS"),
+                    child: Text("Compress image"),
                   ),
 
                   ElevatedButton(
@@ -209,6 +211,33 @@ class _HomeState extends State<Home> with ImageMixin {
                             "$dir/${_compressedFile!.name}.$mimeType";
 
                         if (Platform.isIOS) {
+                          try {
+                            // await _compressedFile!.saveTo(path);
+                            // final res = await OpenFilex.open(
+                            //   _compressedFile!.path,
+                            // );
+
+                            // print("OPENING FILE RESULT: ${res.message}");
+
+                            final params = ShareParams(
+                              title: "Compressed image",
+                              files: [_compressedFile!],
+                            );
+
+                            SharePlus.instance.share(params);
+
+                            if (!context.mounted) return;
+
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("Image saved to downloads"),
+                              ),
+                            );
+
+                            return;
+                          } catch (e) {
+                            print("ERROR: $e");
+                          }
                         } else {
                           _compressedFile!.saveTo(path);
                         }
@@ -283,7 +312,7 @@ class _HomeState extends State<Home> with ImageMixin {
   }
 
   void pickImage() async {
-    _pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+    _pickedImage = await _picker.pickImage(source: ImageSource.gallery, imageQuality: 70);
 
     if (_pickedImage == null) return;
 
