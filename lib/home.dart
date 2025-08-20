@@ -235,7 +235,7 @@ class _HomeState extends State<Home> with ImageMixin {
                             print("ERROR: $e");
                           }
                         } else {
-                          _compressedFile!.saveTo(path);
+                          await _compressedFile!.saveTo(path);
 
                           try {
                             mediaStorePlugin.saveFile(
