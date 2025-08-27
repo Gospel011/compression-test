@@ -207,49 +207,54 @@ class _HomeState extends State<Home> with ImageMixin {
                   if (_compressedFile != null)
                     ElevatedButton(
                       onPressed: () async {
-                        final dir = await getDownloadsDirectory();
-                        final mimeType = _compressedFile!.path.split('.').last;
-                        final String path =
-                            "$dir/${_compressedFile!.name}.$mimeType";
+                        // final dir = await getDownloadsDirectory();
+                        // final mimeType = _compressedFile!.path.split('.').last;
+                        // final String path =
+                        //     "$dir/${_compressedFile!.name}.$mimeType";
 
-                        if (Platform.isIOS) {
-                          try {
-                            // await _compressedFile!.saveTo(path);
-                            // final res = await OpenFilex.open(
-                            //   _compressedFile!.path,
-                            // );
+                        final params = ShareParams(
+                          title: "Compressed image",
+                          files: [_compressedFile!],
+                        );
 
-                            // print("OPENING FILE RESULT: ${res.message}");
+                        SharePlus.instance.share(params);
 
-                            final params = ShareParams(
-                              title: "Compressed image",
-                              files: [_compressedFile!],
-                            );
+                        // if (Platform.isIOS) {
+                        // try {
+                        // await _compressedFile!.saveTo(path);
+                        // final res = await OpenFilex.open(
+                        //   _compressedFile!.path,
+                        // );
 
-                            SharePlus.instance.share(params);
+                        // print("OPENING FILE RESULT: ${res.message}");
 
-                            if (!context.mounted) return;
+                        // final params = ShareParams(
+                        //   title: "Compressed image",
+                        //   files: [_compressedFile!],
+                        // );
 
-                            return;
-                          } catch (e) {
-                            print("ERROR: $e");
-                          }
-                        } else {
-                          await _compressedFile!.saveTo(path);
+                        // SharePlus.instance.share(params);
 
-                          try {
-                            mediaStorePlugin.saveFile(
-                              tempFilePath: path,
-                              dirType: DirType.download,
-                              dirName: DirType.photo.defaults,
-                            );
-                          } catch (e) {
-                            if (!context.mounted) return;
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error: $e")),
-                            );
-                          }
-                        }
+                        // return;
+                        // } catch (e) {
+                        //   print("ERROR: $e");
+                        // }
+                        // } else {
+                        //   await _compressedFile!.saveTo(path);
+
+                        //   // try {
+                        //   //   mediaStorePlugin.saveFile(
+                        //   //     tempFilePath: path,
+                        //   //     dirType: DirType.download,
+                        //   //     dirName: DirType.photo.defaults,
+                        //   //   );
+                        //   // } catch (e) {
+                        //   //   if (!context.mounted) return;
+                        //   //   ScaffoldMessenger.of(context).showSnackBar(
+                        //   //     SnackBar(content: Text("Error: $e")),
+                        //   //   );
+                        //   // }
+                        // }
 
                         if (context.mounted == false) return;
 
