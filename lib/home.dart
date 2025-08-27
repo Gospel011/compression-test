@@ -26,7 +26,7 @@ class _HomeState extends State<Home> with ImageMixin {
 
   XFile? _compressedFile;
   final Map<String, dynamic> _compressedImageDetails = {};
-  int compressionQuality = 10;
+  int compressionQuality = 70;
 
   @override
   Widget build(BuildContext context) {
