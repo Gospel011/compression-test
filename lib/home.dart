@@ -11,6 +11,7 @@ import 'package:media_store_plus/media_store_plus.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -31,7 +32,10 @@ class _HomeState extends State<Home> with ImageMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("C O M P R E S S I O N   T E S T")),
+      appBar: AppBar(
+        title: Image.asset('assets/images/packtide_logo.png', height: 32),
+        // centerTitle: false,
+      ),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -267,10 +271,43 @@ class _HomeState extends State<Home> with ImageMixin {
                 ],
               ),
 
-            SizedBox(height: 24),
+            SizedBox(height: 72),
+
+            Text("Made with love 💞", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w500),),
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: 'by Gospel Ugochukwu ',
+                children: [
+                  WidgetSpan(
+                    alignment: PlaceholderAlignment.middle,
+                    child: Icon(
+                      Icons.open_in_new_rounded,
+                      size: 16,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                ],
+
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontWeight: FontWeight.bold,
+                  // decoration: TextDecoration.underline
+                ),
+              ),
+            ),
+
+            SizedBox(height: 64),
           ],
         ),
       ),
+    );
+  }
+
+  void launchSocialProfile() {
+    launchUrl(
+      Uri.parse('https://linkedin.com/in/ugochukwu-gospel/'),
+      mode: LaunchMode.externalApplication,
     );
   }
 
@@ -290,7 +327,10 @@ class _HomeState extends State<Home> with ImageMixin {
             children: [
               TextSpan(
                 text: "Size: ",
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueGrey,
+                ),
                 children: [
                   TextSpan(
                     text: formatFileSize(details['size']),

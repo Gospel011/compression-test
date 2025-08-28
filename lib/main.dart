@@ -33,8 +33,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
+      title: 'Packtide',
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
+      theme: ThemeData(
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(fontFamily: "Arial_Rounded", fontWeight: FontWeight.normal),
+        ),
+      ),
       home: Home(),
     );
   }
