@@ -274,25 +274,28 @@ class _HomeState extends State<Home> with ImageMixin {
             SizedBox(height: 72),
 
             Text("Made with love 💞", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.w500),),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: 'by Gospel Ugochukwu ',
-                children: [
-                  WidgetSpan(
-                    alignment: PlaceholderAlignment.middle,
-                    child: Icon(
-                      Icons.open_in_new_rounded,
-                      size: 16,
-                      color: Colors.blueGrey,
+            GestureDetector(
+              onTap: launchSocialProfile,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: 'by Gospel Ugochukwu ',
+                  children: [
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Icon(
+                        Icons.open_in_new_rounded,
+                        size: 16,
+                        color: Colors.blueGrey,
+                      ),
                     ),
+                  ],
+              
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold,
+                    // decoration: TextDecoration.underline
                   ),
-                ],
-
-                style: TextStyle(
-                  color: Colors.blueGrey,
-                  fontWeight: FontWeight.bold,
-                  // decoration: TextDecoration.underline
                 ),
               ),
             ),
